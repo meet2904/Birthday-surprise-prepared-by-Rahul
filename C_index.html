@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Sneha 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F4F1EB;
+    --blush: #F7D6DC;
+    --rose: #F3B7C6;
+    --peach: #F7B199;
+    --coral: #F27A6B;
+    --lavender: #B8AEDF;
+    --sky: #C8E2E3;
+    --yellow: #F7D95A;
+    --red: #E85D75;
+    --charcoal: #2B2B2B;
+    --gray: #3A3A3A;
+    --ink: #4a3728;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    font-family: 'Lora', serif;
+    color: var(--charcoal);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ─── ENVELOPE INTRO ─── */
+  #envelope-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--cream);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  #envelope-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+  .envelope-wrap {
+    position: relative;
+    width: min(320px, 88vw);
+    cursor: pointer;
+    animation: envFloat 3s ease-in-out infinite;
+  }
+  @keyframes envFloat {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)}
+  }
+
+  .env-body {
+    width: 100%; aspect-ratio: 4/3;
+    background: linear-gradient(145deg, #fdf6f0, #fce8e6);
+    border: 1.5px solid #e8c8c0;
+    border-radius: 6px;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(242,122,107,0.15);
+    overflow: hidden;
+  }
+  .env-flap {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(160deg, #fce8e6, #f7d6dc);
+    border-bottom: 1.5px solid #e8c8c0;
+    clip-path: polygon(0 0, 100% 0, 50% 65%);
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    z-index: 2;
+  }
+  .env-flap.open { transform: rotateX(-180deg); }
+  .env-heart {
+    position: absolute; top: 40%; left: 50%; transform: translate(-50%,-50%);
+    font-size: 2.2rem; z-index: 3;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+  @keyframes heartbeat{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.18)}}
+
+  .env-tap-hint {
+    margin-top: 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--coral);
+    opacity: 0.8;
+    animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{opacity:0.8}50%{opacity:0.3}}
+
+  /* ─── MAIN CONTENT ─── */
+  #main-content { opacity: 0; transition: opacity 1s ease; }
+  #main-content.visible { opacity: 1; }
+
+  /* ─── FLOATING PETALS BG ─── */
+  .petals-container {
+    position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    overflow: hidden;
+  }
+  .petal {
+    position: absolute; opacity: 0;
+    animation: petalFall linear infinite;
+    font-size: 1.1rem;
+  }
+  @keyframes petalFall {
+    0%{opacity:0;transform:translateY(-40px) rotate(0deg)}
+    10%{opacity:0.6}
+    90%{opacity:0.4}
+    100%{opacity:0;transform:translateY(110vh) rotate(360deg)}
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { position: relative; z-index: 2; padding: 80px 24px; }
+
+  .section-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding-top: 60px;
+  }
+
+  .hero-deco {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 18px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(4.5rem, 16vw, 9rem);
+    font-weight: 700;
+    color: var(--red);
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+    text-shadow: 2px 4px 20px rgba(232,93,117,0.18);
+  }
+
+  .hero-wish {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.6rem, 5vw, 2.6rem);
+    color: var(--ink);
+    margin-top: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .hero-divider {
+    display: flex; align-items: center; gap: 14px;
+    justify-content: center;
+    margin: 32px auto;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+  }
+  .hero-divider span { font-size: 1.3rem; }
+  .hero-divider line-el {
+    display: block; height: 1px; width: 60px;
+    background: linear-gradient(90deg, transparent, var(--rose), transparent);
+  }
+
+  .hero-para {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--gray);
+    font-style: italic;
+    max-width: 480px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.3s forwards;
+  }
+
+  .scroll-hint {
+    margin-top: 56px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: #b0a090;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.6s forwards;
+  }
+  .scroll-hint-arrow {
+    display: block;
+    margin: 8px auto 0;
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--rose), transparent);
+    animation: arrowPulse 2s ease-in-out infinite;
+  }
+  @keyframes arrowPulse{0%,100%{opacity:0.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}
+
+  /* SVG deco around hero */
+  .hero-svg-tl, .hero-svg-tr, .hero-svg-bl, .hero-svg-br {
+    position: absolute; opacity: 0.55;
+    pointer-events: none;
+  }
+  .hero-svg-tl { top: 20px; left: 10px; width: min(160px,35vw); }
+  .hero-svg-tr { top: 10px; right: 6px; width: min(140px,30vw); transform: scaleX(-1); }
+  .hero-svg-bl { bottom: 20px; left: 6px; width: min(120px,28vw); transform: scaleY(-1); }
+  .hero-svg-br { bottom: 10px; right: 6px; width: min(150px,32vw); transform: scale(-1,-1); }
+
+  /* ─── POEM / LETTER SECTION ─── */
+  #letter {
+    background: none;
+    padding: 60px 24px;
+  }
+  .letter-card {
+    background: linear-gradient(135deg, #fffaf7, #fdf0f4);
+    border: 1px solid #f0d8dc;
+    border-radius: 18px;
+    padding: clamp(32px, 7vw, 64px) clamp(24px, 6vw, 56px);
+    box-shadow: 0 4px 40px rgba(243,183,198,0.18), 0 1px 0 rgba(255,255,255,0.8) inset;
+    position: relative;
+    overflow: hidden;
+  }
+  .letter-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--rose), var(--peach), var(--lavender), var(--rose));
+  }
+  .letter-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 24px;
+  }
+  .letter-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.2rem, 4vw, 1.65rem);
+    line-height: 1.9;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .letter-text em {
+    color: var(--red);
+    font-style: normal;
+    font-weight: 700;
+  }
+  .letter-sign {
+    margin-top: 32px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: var(--coral);
+    text-align: right;
+  }
+  .letter-corner-deco {
+    position: absolute;
+    font-size: 3.5rem;
+    opacity: 0.12;
+  }
+  .letter-corner-deco.tl { top: 12px; left: 16px; }
+  .letter-corner-deco.br { bottom: 12px; right: 16px; transform: rotate(180deg); }
+
+  /* ─── GALLERY ─── */
+  #gallery { padding: 80px 24px; }
+  .gallery-header { text-align: center; margin-bottom: 56px; }
+
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coral);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.2rem, 7vw, 3.6rem);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+
+  /* Magazine-style grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .g-item {
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    background: var(--blush);
+    box-shadow: 0 2px 16px rgba(232,93,117,0.1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .g-item:hover { transform: scale(1.025) translateY(-4px); box-shadow: 0 12px 40px rgba(232,93,117,0.2); }
+
+  /* Magazine layout positions */
+  .g-item:nth-child(1) { grid-column: 1 / 8; grid-row: 1; aspect-ratio: 4/3; }
+  .g-item:nth-child(2) { grid-column: 8 / 13; grid-row: 1; aspect-ratio: 3/4; }
+  .g-item:nth-child(3) { grid-column: 1 / 5; grid-row: 2; aspect-ratio: 1/1; }
+  .g-item:nth-child(4) { grid-column: 5 / 9; grid-row: 2; aspect-ratio: 1/1; }
+  .g-item:nth-child(5) { grid-column: 9 / 13; grid-row: 2; aspect-ratio: 1/1; }
+  .g-item:nth-child(6) { grid-column: 1 / 13; grid-row: 3; aspect-ratio: 16/6; }
+
+  .g-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .g-item:hover img { transform: scale(1.06); }
+
+  .g-item-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(232,93,117,0.55) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex; align-items: flex-end; padding: 14px;
+  }
+  .g-item:hover .g-item-overlay { opacity: 1; }
+  .g-item-overlay span {
+    color: #fff;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Photo placeholder style */
+  .g-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--blush), var(--rose));
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px; padding: 12px;
+  }
+  .g-placeholder .ph-icon { font-size: 2.2rem; opacity: 0.6; }
+  .g-placeholder .ph-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    opacity: 0.6;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* Mobile gallery */
+  @media (max-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .g-item { grid-column: unset !important; grid-row: unset !important; aspect-ratio: 1/1 !important; }
+    .g-item:nth-child(1) { grid-column: 1 / 3 !important; aspect-ratio: 16/9 !important; }
+    .g-item:nth-child(6) { grid-column: 1 / 3 !important; aspect-ratio: 16/9 !important; }
+  }
+
+  /* ─── LIGHTBOX ─── */
+  #lightbox {
+    display: none; position: fixed; inset: 0; z-index: 9000;
+    background: rgba(43,30,24,0.88);
+    backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  #lightbox.active { display: flex; }
+  #lightbox-img {
+    max-width: min(90vw, 700px);
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 14px;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+    animation: lbReveal 0.4s ease;
+  }
+  @keyframes lbReveal { from{opacity:0;transform:scale(0.88)} to{opacity:1;transform:scale(1)} }
+  #lightbox-close {
+    position: absolute; top: 20px; right: 24px;
+    font-size: 2rem; color: #fff; cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    opacity: 0.7; transition: opacity 0.2s;
+  }
+  #lightbox-close:hover { opacity: 1; }
+  .lb-heart {
+    position: absolute; bottom: 30px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+    color: var(--rose);
+  }
+
+  /* ─── DOCTOR DREAM SECTION ─── */
+  #doctor {
+    padding: 80px 24px;
+  }
+  .doctor-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 5vw, 64px);
+    align-items: center;
+  }
+  @media(max-width:640px) {
+    .doctor-inner { grid-template-columns: 1fr; }
+    .doctor-photo-wrap { order: -1; }
+  }
+
+  .doctor-photo-wrap {
+    position: relative;
+  }
+  .doctor-photo-frame {
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--sky), var(--lavender));
+    box-shadow: 0 8px 40px rgba(184,174,223,0.3);
+    position: relative;
+  }
+  .doctor-photo-frame img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .doctor-frame-deco {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 10px; left: 10px;
+    border: 2px solid var(--lavender);
+    border-radius: 18px;
+    z-index: -1;
+    opacity: 0.5;
+  }
+  .doctor-badge {
+    position: absolute;
+    bottom: -16px; right: -16px;
+    background: #fff;
+    border: 1.5px solid var(--lavender);
+    border-radius: 50%;
+    width: 72px; height: 72px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 20px rgba(184,174,223,0.3);
+    animation: badgePulse 3s ease-in-out infinite;
+  }
+  @keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+  .doctor-content { }
+  .doctor-content .section-title { color: var(--ink); margin-bottom: 24px; }
+  .doctor-wish-text {
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--gray);
+    margin-bottom: 28px;
+  }
+  .doctor-wish-text strong { color: var(--red); font-style: italic; }
+  .dr-quote {
+    border-left: 3px solid var(--rose);
+    padding-left: 20px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ─── FAMILY SECTION ─── */
+  #family {
+    padding: 80px 24px;
+    text-align: center;
+  }
+  .family-photo-wrap {
+    max-width: 600px;
+    margin: 48px auto;
+    position: relative;
+  }
+  .family-frame {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--peach), var(--blush));
+    box-shadow: 0 8px 48px rgba(247,177,153,0.3);
+  }
+  .family-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .family-frame-outer {
+    position: absolute; inset: -8px;
+    border: 2px dashed var(--peach);
+    border-radius: 28px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .family-wish {
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.95;
+    color: var(--gray);
+  }
+  .family-wish strong { color: var(--red); }
+
+  /* ─── SURPRISE SECTION ─── */
+  #surprise {
+    padding: 80px 24px;
+    text-align: center;
+  }
+  .cake-btn {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 18px 44px;
+    background: linear-gradient(135deg, var(--rose), var(--coral));
+    color: #fff;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 4px 24px rgba(242,122,107,0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    letter-spacing: 0.02em;
+  }
+  .cake-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 10px 36px rgba(242,122,107,0.45); }
+  .cake-btn:active { transform: scale(0.97); }
+
+  #confetti-canvas {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 48px 24px 56px;
+    position: relative; z-index: 2;
+  }
+  footer p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  footer small {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: #bda898;
+    letter-spacing: 0.14em;
+  }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.35s; }
+  .reveal-delay-4 { transition-delay: 0.5s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--rose); border-radius: 99px; }
+
+  /* ─── FLOATING HEARTS ─── */
+  .floating-heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 5000;
+    animation: floatHeart 1.4s ease-out forwards;
+    font-size: 1.4rem;
+  }
+  @keyframes floatHeart {
+    0%{opacity:1;transform:translateY(0) scale(0.6)}
+    100%{opacity:0;transform:translateY(-80px) scale(1.3)}
+  }
+
+  /* Misc utility */
+  .text-center { text-align: center; }
+  .mt-4 { margin-top: 16px; }
+  .mt-8 { margin-top: 32px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ ENVELOPE INTRO ═══ -->
+<div id="envelope-screen">
+  <div class="envelope-wrap" id="envelope" onclick="openEnvelope()">
+    <div class="env-body">
+      <div class="env-flap" id="env-flap"></div>
+      <div class="env-heart">💌</div>
+    </div>
+    <p class="env-tap-hint">✦ tap to open your letter ✦</p>
+  </div>
+</div>
+
+<!-- ═══ CONFETTI CANVAS ═══ -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ═══ FLOATING PETALS ═══ -->
+<div class="petals-container" id="petals-container"></div>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div id="lightbox">
+  <span id="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="Sneha">
+  <span class="lb-heart">🌸 She's everything 🌸</span>
+</div>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<div id="main-content">
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+
+    <!-- Corner florals (SVG inline) -->
+    <svg class="hero-svg-tl" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="18" fill="#F3B7C6" opacity="0.55"/>
+      <circle cx="80" cy="25" r="12" fill="#F7D6DC" opacity="0.6"/>
+      <circle cx="20" cy="85" r="10" fill="#F7B199" opacity="0.5"/>
+      <ellipse cx="60" cy="70" rx="9" ry="13" fill="#B8AEDF" opacity="0.4" transform="rotate(-30 60 70)"/>
+      <line x1="40" y1="58" x2="40" y2="110" stroke="#4a3728" stroke-width="1.2" opacity="0.25"/>
+      <line x1="80" y1="37" x2="65" y2="85" stroke="#4a3728" stroke-width="1" opacity="0.2"/>
+      <circle cx="100" cy="50" r="5" fill="#F7D95A" opacity="0.5"/>
+      <circle cx="130" cy="30" r="7" fill="#F3B7C6" opacity="0.4"/>
+      <text x="30" y="155" font-size="18" opacity="0.3" font-family="serif">✿</text>
+      <text x="110" y="120" font-size="14" opacity="0.25" font-family="serif">❀</text>
+    </svg>
+
+    <svg class="hero-svg-tr" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="18" fill="#F3B7C6" opacity="0.55"/>
+      <circle cx="80" cy="25" r="12" fill="#F7D6DC" opacity="0.6"/>
+      <circle cx="20" cy="85" r="10" fill="#B8AEDF" opacity="0.5"/>
+      <ellipse cx="60" cy="70" rx="9" ry="13" fill="#F7B199" opacity="0.4" transform="rotate(-30 60 70)"/>
+      <line x1="40" y1="58" x2="40" y2="110" stroke="#4a3728" stroke-width="1.2" opacity="0.25"/>
+      <circle cx="100" cy="50" r="5" fill="#E85D75" opacity="0.35"/>
+      <text x="30" y="155" font-size="18" opacity="0.3" font-family="serif">✿</text>
+    </svg>
+
+    <svg class="hero-svg-bl" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="60" r="16" fill="#C8E2E3" opacity="0.5"/>
+      <circle cx="90" cy="40" r="10" fill="#F3B7C6" opacity="0.55"/>
+      <line x1="50" y1="76" x2="50" y2="130" stroke="#4a3728" stroke-width="1.2" opacity="0.2"/>
+      <text x="20" y="30" font-size="22" opacity="0.25" font-family="serif">❀</text>
+    </svg>
+
+    <svg class="hero-svg-br" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="14" fill="#F7D95A" opacity="0.4"/>
+      <circle cx="75" cy="65" r="11" fill="#F3B7C6" opacity="0.5"/>
+      <circle cx="110" cy="35" r="8" fill="#B8AEDF" opacity="0.45"/>
+      <text x="30" y="130" font-size="20" opacity="0.25" font-family="serif">✿</text>
+    </svg>
+
+    <div class="section-inner">
+      <div class="hero-deco">🌸 🌷 🌸</div>
+      <p class="hero-subtitle">✦ wishing you the most beautiful day ✦</p>
+      <h1 class="hero-name">Sneha</h1>
+      <p class="hero-wish">Happy Birthday, Granny 🎂</p>
+      <div class="hero-divider">
+        <line-el></line-el>
+        <span>✿</span>
+        <line-el></line-el>
+      </div>
+      <p class="hero-para">
+        On this beautiful day, the whole world paused — just to celebrate <em style="font-style:italic;color:var(--red)">you</em>. 
+        Because someone as rare and radiant as Sneha deserves nothing less than the whole universe smiling.
+      </p>
+      <div class="scroll-hint">
+        scroll to unwrap your surprise
+        <span class="scroll-hint-arrow"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LETTER ── -->
+  <section id="letter">
+    <div class="section-inner reveal">
+      <div class="letter-card">
+        <div class="letter-corner-deco tl">🌸</div>
+        <div class="letter-corner-deco br">🌸</div>
+        <p class="letter-label">✦ a little letter for you ✦</p>
+        <div class="letter-text">
+          Dear <em>Sneha</em>,<br><br>
+          There are days that the calendar marks — and then there are days that the <em>heart</em> marks. 
+          Today is both. 🌷<br><br>
+          May this birthday bring you the kind of joy that lingers — the warm, quiet kind, 
+          like sunlight through curtains on a slow morning. May you laugh until your cheeks hurt, 
+          feel loved beyond what words can carry, and know — truly know — 
+          that the world is so much more <em>beautiful</em> because you are in it.<br><br>
+          You are someone who makes every room brighter, every moment softer, every memory sweeter. 
+          And today, on your most special day, the universe is sending all its best flowers 
+          straight to <em>you</em>. 🌺<br><br>
+          Happy Birthday, to the most beautiful girl.
+        </div>
+        <div class="letter-sign">With all the happiness in the world 🌸</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GALLERY ── -->
+  <section id="gallery">
+    <div class="gallery-header reveal">
+      <span class="section-eyebrow">✦ you & your moments ✦</span>
+      <h2 class="section-title">A Gallery of<br>You, Gorgeous</h2>
+    </div>
+
+    <div class="gallery-grid reveal reveal-delay-1">
+
+      <!-- PHOTO 1 — Large hero photo, landscape -->
+      <!-- SUGGESTION: A beautiful candid or your favourite portrait of Sneha, bright & smiling -->
+      <div class="g-item" onclick="openLightbox(this)">
+        <div class="g-placeholder">
+          <span class="ph-icon">🌸</span>
+          <!-- <span class="ph-note">Photo 1<br>Best portrait / candid<br>Landscape format</span> -->
+          <span class="ph-note"><img src="images/WhatsApp Image 2026-06-18 at 11.32.34 PM.jpeg"></span>
+
+        </div>
+        <div class="g-item-overlay"><span>✦ radiant ✦</span></div>
+      </div>
+
+      <!-- PHOTO 2 — Portrait tall -->
+      <!-- SUGGESTION: Full-length photo, traditional dress or a memorable occasion -->
+      <div class="g-item" onclick="openLightbox(this)">
+        <div class="g-placeholder">
+          <span class="ph-icon">🌷</span>
+          <!-- <span class="ph-note">Photo 2<br>Full-length / traditional<br>Portrait format</span> -->
+          <span class="ph-note"><img src="images\WhatsApp Image 2026-06-18 at 11.32.35 PM.jpeg"></span>
+        </div>
+        <div class="g-item-overlay"><span>✦ graceful ✦</span></div>
+      </div>
+
+      <!-- PHOTO 3 — Square -->
+      <!-- SUGGESTION: Laughing or having fun photo -->
+      <div class="g-item" onclick="openLightbox(this)">
+        <div class="g-placeholder">
+          <span class="ph-icon">💫</span>
+          <!-- <span class="ph-note">Photo 3<br>Laughing / fun moment<br>Square</span> -->
+                     <span class="ph-note"><img src="images/WhatsApp Image 2026-06-18 at 11.32.37 PM.jpeg"></span>
+        </div>
+        <div class="g-item-overlay"><span>✦ joyful ✦</span></div>
+      </div>
+
+      <!-- PHOTO 4 — Square -->
+      <!-- SUGGESTION: Selfie or close-up, natural light -->
+      <div class="g-item" onclick="openLightbox(this)">
+        <div class="g-placeholder">
+          <span class="ph-icon">🌺</span>
+          <!-- <span class="ph-note">Photo 4<br>Selfie / close-up<br>Square</span> -->
+                     <span class="ph-note"><img src="images/WhatsApp Image 2026-06-18 at 11.32.38 PM.jpeg"></span>
+
+        </div>
+        <div class="g-item-overlay"><span>✦ glowing ✦</span></div>
+      </div>
+
+      <!-- PHOTO 5 — Square -->
+      <!-- SUGGESTION: Outdoor / travel / scenic photo with Sneha -->
+      <div class="g-item" onclick="openLightbox(this)">
+        <div class="g-placeholder">
+          <span class="ph-icon">🦋</span>
+          <!-- <span class="ph-note">Photo 5<br>Outdoor / travel<br>Square</span> -->
+                     <span class="ph-note"><img src="images/WhatsApp Image 2026-06-18 at 11.32.39 PM.jpeg"></span>
+
+        </div>
+        <div class="g-item-overlay"><span>✦ free spirit ✦</span></div>
+      </div>
+
+      <!-- PHOTO 6 — Wide banner at bottom -->
+      <!-- SUGGESTION: Group photo or a wide scenic shot with Sneha in it -->
+      <div class="g-item" onclick="openLightbox(this)">
+        <div class="g-placeholder">
+          <span class="ph-icon">✨</span>
+          <!-- <span class="ph-note">Photo 6<br>Wide / group / scenic photo with Sneha<br>Wide landscape</span> -->
+                     <span class="ph-note"><img src="images/WhatsApp Image 2026-06-18 at 11.32.40 PM (1).jpeg"></span>
+
+        </div>
+        <div class="g-item-overlay"><span>✦ unforgettable ✦</span></div>
+      </div>
+
+    </div>
+
+    <p class="text-center mt-8" style="font-family:'DM Mono',monospace;font-size:0.68rem;color:#bda898;letter-spacing:0.14em;">
+      ✦ tap any photo to see it bigger ✦
+    </p>
+  </section>
+
+  <!-- ── DOCTOR DREAM ── -->
+  <section id="doctor">
+    <div class="doctor-inner">
+      <div class="doctor-content reveal">
+        <span class="section-eyebrow">✦ your dream, your destiny ✦</span>
+        <h2 class="section-title">Dr. Sneha —<br>the world is waiting</h2>
+        <p class="doctor-wish-text">
+          You carry within you something extraordinary — a heart that genuinely <strong>cares</strong>, 
+          a mind that is always learning, and a spirit that never gives up. 
+          The white coat you'll wear one day is not just fabric — it is the culmination 
+          of every sleepless night, every difficult exam, every moment you chose 
+          to keep going. 🩺<br><br>
+          May every step towards your dream of becoming a <strong>doctor</strong> be met with 
+          grace, strength, and magic. May your patients one day say, 
+          "She changed my life" — because I already know you will. 
+          The world needs healers like you, Sneha. 
+          Compassionate. Brilliant. <strong>Unstoppable.</strong>
+        </p>
+        <div class="dr-quote">
+          "She didn't just dream of saving lives — she was born to." 🌿
+        </div>
+      </div>
+
+      <div class="doctor-photo-wrap reveal reveal-delay-2">
+        <!-- PHOTO 7 — Doctor / Study photo -->
+        <!-- SUGGESTION: Sneha with books / studying / in a formal setting or holding stethoscope if available -->
+        <div class="doctor-photo-frame">
+          <div class="g-placeholder" style="height:100%">
+            <span class="ph-icon">🩺</span>
+            <!-- <span class="ph-note">Photo 7<br>Sneha studying / with books<br>or in formal / professional look<br>Portrait</span> -->
+                     <span class="ph-note"><img src="images/WhatsApp Image 2026-06-18 at 11.32.46 PM.jpeg"></span>
+
+          </div>
+        </div>
+        <div class="doctor-frame-deco"></div>
+        <div class="doctor-badge">🩺</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAMILY ── -->
+  <section id="family">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="section-eyebrow">✦ where love begins ✦</span>
+        <h2 class="section-title">For Your Family,<br>With All My Heart</h2>
+      </div>
+
+      <div class="family-photo-wrap reveal reveal-delay-1">
+        <!-- PHOTO 8 — Family photo -->
+        <!-- SUGGESTION: A warm family photo of Sneha with her family — group portrait, festive occasion, or candid home moment -->
+        <div class="family-frame">
+          <div class="g-placeholder" style="height:100%">
+            <span class="ph-icon">🏡</span>
+            <!-- <span class="ph-note">Photo 8<br>Sneha with family<br>Warm, candid, festive or at home<br>Landscape</span> -->
+                     <span class="ph-note"><img src="images/WhatsApp Image 2026-06-18 at 11.32.46 PM (1).jpeg"></span>
+
+          </div>
+        </div>
+        <div class="family-frame-outer"></div>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <p class="family-wish">
+          Behind every beautiful soul is a family that poured their whole heart into building her. 
+          Sneha, the love you carry — that warmth, that kindness — 
+          it came from the beautiful people who raised you. 🌸<br><br>
+          May your family always be your <strong>greatest strength and your softest safe space</strong>. 
+          May every birthday bring your home more laughter, more togetherness, more joy 
+          than the one before. May the happiness in your house only <strong>multiply</strong> — 
+          as flowers do in spring, filling every corner with colour and life. 🌺<br><br>
+          Here's to your family, who deserve every good thing — just like you do.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SURPRISE ── -->
+  <section id="surprise">
+    <div class="section-inner">
+      <div class="reveal">
+        <span class="section-eyebrow">✦ one last thing ✦</span>
+        <h2 class="section-title">A Birthday<br>Surprise for You 🎁</h2>
+        <p style="margin-top:20px;font-size:1rem;line-height:1.9;color:var(--gray);max-width:420px;margin-left:auto;margin-right:auto;">
+          Every birthday deserves a little magic moment. 
+          This one's just for you, Sneha — press the button below 💫
+        </p>
+        <button class="cake-btn" onclick="launchConfetti()">🎂 Make a Birthday Wish 🎂</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <p>Always yours, always cheering for you 🌸</p>
+    <small>✦ Happy Birthday, Sneha ✦ May every year be your best one yet ✦</small>
+  </footer>
+
+</div><!-- end #main-content -->
+
+<script>
+// ═══ ENVELOPE OPEN ═══
+function openEnvelope() {
+  const flap = document.getElementById('env-flap');
+  flap.classList.add('open');
+  setTimeout(() => {
+    document.getElementById('envelope-screen').classList.add('hidden');
+    document.getElementById('main-content').classList.add('visible');
+    startPetals();
+  }, 900);
+}
+
+// ═══ FLOATING PETALS ═══
+const petalEmojis = ['🌸','🌺','🌷','✿','❀','💮','🌼','🌹'];
+function startPetals() {
+  const container = document.getElementById('petals-container');
+  for (let i = 0; i < 22; i++) {
+    createPetal(container, i * 600);
+  }
+}
+function createPetal(container, delay) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+  p.style.left = Math.random() * 100 + 'vw';
+  p.style.fontSize = (0.8 + Math.random() * 0.9) + 'rem';
+  const dur = 8 + Math.random() * 12;
+  p.style.animationDuration = dur + 's';
+  p.style.animationDelay = delay + 'ms';
+  p.style.opacity = '0';
+  container.appendChild(p);
+  p.addEventListener('animationend', () => {
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDelay = '0s';
+  });
+}
+
+// ═══ LIGHTBOX ═══
+function openLightbox(el) {
+  const lb = document.getElementById('lightbox');
+  const img = el.querySelector('img');
+  if (img) {
+    document.getElementById('lightbox-img').src = img.src;
+  } else {
+    // placeholder mode — show a styled placeholder
+    document.getElementById('lightbox-img').src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="400" height="300" fill="%23F7D6DC"/><text x="200" y="150" text-anchor="middle" font-size="48" font-family="serif">🌸</text></svg>';
+  }
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+// ═══ FLOATING HEARTS ON CLICK ═══
+document.addEventListener('click', function(e) {
+  if (e.target.closest('#lightbox') || e.target.closest('#envelope-screen') || e.target.closest('.cake-btn')) return;
+  spawnHeart(e.clientX, e.clientY);
+});
+function spawnHeart(x, y) {
+  const h = document.createElement('div');
+  h.className = 'floating-heart';
+  h.textContent = ['❤️','🌸','💕','✨','🌷'][Math.floor(Math.random()*5)];
+  h.style.left = x - 12 + 'px';
+  h.style.top  = y - 12 + 'px';
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 1500);
+}
+
+// ═══ SCROLL REVEAL ═══
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('revealed'); }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ═══ CONFETTI ═══
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+let confettiParticles = [];
+let confettiRunning = false;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const confettiColors = ['#F3B7C6','#F7D95A','#B8AEDF','#F7B199','#C8E2E3','#E85D75','#F27A6B'];
+
+function launchConfetti() {
+  confettiParticles = [];
+  for (let i = 0; i < 180; i++) {
+    confettiParticles.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * 200,
+      w: 6 + Math.random() * 8,
+      h: 3 + Math.random() * 5,
+      color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+      speed: 1.5 + Math.random() * 3.5,
+      angle: Math.random() * 360,
+      spin: (Math.random() - 0.5) * 4,
+      drift: (Math.random() - 0.5) * 1.5,
+      opacity: 1
+    });
+  }
+  confettiRunning = true;
+  requestAnimationFrame(drawConfetti);
+
+  // Show sweet message
+  setTimeout(() => {
+    showWishMessage();
+  }, 400);
+}
+
+function drawConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  let alive = false;
+  confettiParticles.forEach(p => {
+    p.y += p.speed;
+    p.x += p.drift;
+    p.angle += p.spin;
+    if (p.y < canvas.height + 30) alive = true;
+    if (p.y > canvas.height + 30) p.opacity = Math.max(0, p.opacity - 0.03);
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.angle * Math.PI / 180);
+    ctx.globalAlpha = p.opacity;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, p.w / 2, p.h / 2, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  });
+  if (alive) requestAnimationFrame(drawConfetti);
+  else ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function showWishMessage() {
+  const msg = document.createElement('div');
+  msg.style.cssText = `
+    position:fixed; inset:0; z-index:9997;
+    display:flex; align-items:center; justify-content:center;
+    pointer-events:none;
+  `;
+  msg.innerHTML = `
+    <div style="
+      background:linear-gradient(135deg,#fffaf7,#fdf0f4);
+      border:1.5px solid #F3B7C6;
+      border-radius:20px;
+      padding:40px 48px;
+      text-align:center;
+      box-shadow:0 16px 60px rgba(232,93,117,0.2);
+      animation:lbReveal 0.5s ease;
+      max-width:90vw;
+    ">
+      <div style="font-size:3rem; margin-bottom:12px;">🎂✨🎂</div>
+      <div style="font-family:'Dancing Script',cursive;font-size:2.2rem;color:#E85D75;line-height:1.3;">
+        Happy Birthday,<br>Sneha!
+      </div>
+      <div style="font-family:'Lora',serif;font-size:0.95rem;color:#3A3A3A;margin-top:14px;line-height:1.8;font-style:italic;">
+        May all your wishes come true today 🌸<br>
+        You deserve every bit of magic the universe holds.
+      </div>
+    </div>
+  `;
+  document.body.appendChild(msg);
+  setTimeout(() => msg.style.opacity = '0', 3500);
+  setTimeout(() => msg.remove(), 4200);
+  msg.style.transition = 'opacity 0.7s ease';
+}
+</script>
+
+</body>
+</html>
